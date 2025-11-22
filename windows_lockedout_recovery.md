@@ -1,7 +1,8 @@
 # Windows Locked Out Recovery Guide
 
-[![Windows](https://img.shields.io/badge/OS-Windows-blue)](https://www.microsoft.com)
-[![Warning](https://img.shields.io/badge/⚠️-Caution-red)](https://example.com)
+![Windows](https://img.shields.io/badge/OS-Windows-blue)](https://www.microsoft.com)
+![Lab](https://img.shields.io/badge/Project-Home%20Lab-purple)
+![Warning](https://img.shields.io/badge/⚠️-Caution-red)](https://example.com)
 
 > **Warning:** This method involves replacing system files. Use only on a Personal PC. Remember, back up important data if possible.
 
