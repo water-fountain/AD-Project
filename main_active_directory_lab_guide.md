@@ -69,11 +69,12 @@ This guide will walk you through setting up a complete, albeit basic, Active Dir
 
 1. Open Network & Internet Settings
 2. Change **adapter options** → Right-click **Ethernet** → **Properties**
-3. IPv4 Settings: ![picture](image.png)
+3. IPv4 Settings: 
    - IP: 192.168.10.10 (example)
    - Subnet: 255.255.255.0
    - Gateway: 192.168.10.1 (example)
    - Preferred DNS: 127.0.0.1 (loopback)
+   ![picture](image.png)
 </details>
 
 ---
