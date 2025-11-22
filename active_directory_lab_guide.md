@@ -1,6 +1,6 @@
 # Active Directory Home Lab
 
-![Windows](https://img.shields.io/badge/OS-Windows-blue)](https://www.microsoft.com)
+![Windows](https://img.shields.io/badge/OS-Windows-blue)
 ![Windows Server](https://img.shields.io/badge/Server-Windows%20Server%202019%2F2022-blue)
 ![Lab](https://img.shields.io/badge/Project-Home%20Lab-purple)
 ![Active Directory](https://img.shields.io/badge/Role-Active%20Directory-3A5BA0)
