@@ -6,7 +6,7 @@
 This guide will walk you through setting up a complete, albeit basic, Active Directory (AD) environment for IT help desk practice & project building.
 
 ---
-<deatails>
+<details>
 ## Goals
 <summary>Build a functional AD lab on a home machine using:</summary>
 - **Windows Server 2019 (Domain Controller)**
