@@ -3,6 +3,7 @@
 ![Windows](https://img.shields.io/badge/OS-Windows-blue)
 ![Lab](https://img.shields.io/badge/Project-Home%20Lab-purple)
 ![Warning](https://img.shields.io/badge/⚠️-Caution-red)
+![Caution](https://img.shields.io/badge/⚠️-Administrative%20Changes-critical)
 
 > **Warning:** This method involves replacing system files. Use only on a Personal PC. Remember, back up important data if possible.
 
