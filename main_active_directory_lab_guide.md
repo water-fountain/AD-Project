@@ -54,7 +54,9 @@ After install completes:
 - Restart the VM
 
 ### 5. Configure Network Settings
+
 <details>
+
 <summary>Set a static IP:</summary>
 1. Open Network & Internet Settings
 2. Change adapter options → Right-click Ethernet → Properties
@@ -63,7 +65,9 @@ After install completes:
    - Subnet: 255.255.255.0
    - Gateway: 192.168.10.1 (example) Your own router or pfSense box goes here
    - Preferred DNS: 127.0.0.1 (loopback)
+
 </details>
+
 ---
 
 ## 📘 Installing AD DS Role
