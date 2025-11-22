@@ -74,7 +74,7 @@ This guide will walk you through setting up a complete, albeit basic, Active Dir
    - Subnet: 255.255.255.0
    - Gateway: 192.168.10.1 (example)
    - Preferred DNS: 127.0.0.1 (loopback)
-   ![picture](image.png)
+ ![picture](image.png)
 </details>
 
 ---
