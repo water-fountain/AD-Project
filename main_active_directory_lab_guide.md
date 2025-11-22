@@ -43,7 +43,6 @@ This guide will walk you through setting up a complete, albeit basic, Active Dir
 </details>
 
 ### 2. Attach the Windows Server ISO
-Boot the VM from the ISO.
 
 ### 3. Install Windows Server
 <details>
@@ -58,7 +57,7 @@ Boot the VM from the ISO.
 <details>
 <summary>After install completes:</summary>
 
-- Create a strong local Administrator password
+- Create a **strong** local Administrator password (i.e **OldPassword123!**)
 - Open **Server Manager**
 - Set the computer name (ex: DC01)
 - Restart the VM
@@ -66,10 +65,10 @@ Boot the VM from the ISO.
 
 ### 5. Configure Network Settings
 <details>
-<summary>Set a static IP:</summary>
+<summary>Setting up a static IP:</summary>
 
 1. Open Network & Internet Settings
-2. Change adapter options → Right-click Ethernet → Properties
+2. Change **adapter options** → Right-click **Ethernet** → **Properties**
 3. IPv4 Settings:
    - IP: 192.168.10.10 (example)
    - Subnet: 255.255.255.0
@@ -79,7 +78,7 @@ Boot the VM from the ISO.
 
 ---
 
-## 📘 Installing AD DS Role
+## Installing AD DS Role
 
 ### 1. Open Server Manager
 Click Manage → Add Roles and Features.
