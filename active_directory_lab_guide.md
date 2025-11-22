@@ -1,7 +1,9 @@
 # Active Directory Home Lab
 
-[![Windows](https://img.shields.io/badge/OS-Windows-blue)](https://www.microsoft.com)
-[![Warning](https://img.shields.io/badge/⚠️-Caution-red)](https://example.com)
+![Windows Server](https://img.shields.io/badge/Server-Windows%20Server%202019%2F2022-blue)
+![Lab](https://img.shields.io/badge/Project-Home%20Lab-purple)
+![Active Directory](https://img.shields.io/badge/Role-Active%20Directory-3A5BA0)
+![Caution](https://img.shields.io/badge/⚠️-Administrative%20Changes-critical)
 
 This guide will walk you through setting up a complete, albeit basic, Active Directory (AD) environment for IT help desk practice & project building.
 
