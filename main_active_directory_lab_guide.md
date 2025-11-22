@@ -46,9 +46,13 @@ This guide will walk you through setting up a complete, albeit basic, Active Dir
 Boot the VM from the ISO.
 
 ### 3. Install Windows Server
+<details>
+<summary>While Installing:</summary>
+
 - Choose **Windows Server 2019/2022 Standard (Desktop Experience)**
 - Select **Custom Install**
 - Install to the virtual disk
+</details>
 
 ### 4. Initial Configuration
 <details>
@@ -59,6 +63,7 @@ Boot the VM from the ISO.
 - Set the computer name (ex: DC01)
 - Restart the VM
 </details>
+
 ### 5. Configure Network Settings
 <details>
 <summary>Set a static IP:</summary>
