@@ -54,7 +54,6 @@ After install completes:
 - Restart the VM
 
 ### 5. Configure Network Settings
-
 <details>
 <summary>Set a static IP:</summary>
 
@@ -63,7 +62,7 @@ After install completes:
 3. IPv4 Settings:
    - IP: 192.168.10.10 (example)
    - Subnet: 255.255.255.0
-   - Gateway: 192.168.10.1 (example) Your own router or pfSense box goes here
+   - Gateway: 192.168.10.1 (example)
    - Preferred DNS: 127.0.0.1 (loopback)
 </details>
 
