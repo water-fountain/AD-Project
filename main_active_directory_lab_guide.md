@@ -153,7 +153,7 @@ The server will reboot as a Domain Controller.
 
 ---
 
-## Creating Users & Organizational Units (OUs)
+## Creating Users, Security Groups, & Organizational Units (OUs)
 
 ### 1. Open AD Users and Computers (ADUC)
 <details>
@@ -165,7 +165,34 @@ The server will reboot as a Domain Controller.
 
 </details>
 
-### 2. Create Organizational Units
+### 2. Create Secuirty Groups
+<details>
+<summmary>Recommended Security Groups:</summary> 
+Create desired groups to organize permissions and role-based access in your domain 
+
+- Sales_Users - Standard Users in Sales dapartment 
+- HelpDesk_Techs - Help desk staff with limited admin privileges to resolve issues
+- IT_Admins - Full administrative rights for IT staff
+
+</details>
+
+<details>
+<summary>How to Create a Security Group</summary>
+
+- Open Active Directory Users and Computers 
+- Navigate to the OU where you would like to store your groups (e.g CorpUsers -> IT or another dedicated Group OU)
+- Right click the OU -> New -> Group
+- Configure the following:
+   - Group Name: (ex. IT_Admins) 
+   - Group Scope: Global
+   - Group Type: Security
+- Click Ok to create the group.
+
+You can now add users to these groups to create accounts, in this instance, for the IT department
+
+</details>
+
+### 3. Create Organizational Units
 Right‑click domain → New → Organizational Unit.
 <details>
 <summary>Suggested OUs:</summary>
@@ -180,7 +207,7 @@ Right‑click domain → New → Organizational Unit.
 
 </details>
 
-### 3. Create User Accounts
+### 4. Create User Accounts
 Create users inside the correct department OU for clear and more efficient management
 <details>
 <summary>Steps to Create a User</summary>
@@ -196,7 +223,7 @@ Create users inside the correct department OU for clear and more efficient manag
 
 </details>
 
-### 4. Add Admin Users
+### 5. Add Admin Users
 Create an account such as helpdesk.admin.
 Add them to:
 - Domain Admins **or**
