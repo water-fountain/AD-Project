@@ -88,7 +88,6 @@ This guide will walk you through setting up a complete, albeit basic, Active Dir
 Click **Manage** → **Add Roles and Features**.
 
 ### 2. Choose Role-Based Installation
-![alt text](image-2.png)
 Click Next until you reach **Server Roles**.
 
 ### 3. Install Active Directory Domain Services & Features
