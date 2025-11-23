@@ -128,7 +128,7 @@ Click **Next.**
 - Set a DSRM (Directory Services Restore Mode) password
 Click **Next.**
 
-### 4. DNS % Additional Options
+### 4. DNS & Additional Options
 - A DNS delegation warning may appear - this is normal, you maky skip
 - Click next through additional options and paths pages.
 
@@ -136,6 +136,7 @@ Click **Next.**
 - Review all settings 
 - Let the prerequisite check complete 
 - Click Install.
+
 The server will reboot as a Domain Controller.
 
 ---
