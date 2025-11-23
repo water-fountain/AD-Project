@@ -253,13 +253,31 @@ Users now will inherit permissions based on the groups assigned to them.
 </details>
 
 
-### 6. Add Admin Users
-Create an account such as helpdesk.admin.
-Add them to:
-- Domain Admins **or**
-- IT Support (recommended, safer)
+### 6. Creating Administrative Accounts
+Create dedicated administrative accounts seperate from standard users for security and proper role management. 
+<details>
+<summary>Steps:</summary>
+
+- Open **Active Directory Users and Computers** (ADUC) 
+- Navigate to the **Admins** -> **AdminUsers OU** (create if not done so already)
+- Right-click the **OU** -> **New** -> **User**
+- Fill in the account information:
+   - First Name: (ex. John)
+   - Last Name: (ex. Doe)
+   - User Logon Name: (ex. jdoe.admin)
+- Click **Next**
+- Set a **strong password**:
+   - Enable options as needed
+- Click **Next**, then **finish** to create the account
+- Add the new account to the **IT_Admins security group**:
+   - **Right-click** the user -> **Properties** -> **Member of** tab -> **Add** -> Enter **IT_Admins** -> **Check Names** -> **Ok**
+
+</details>
 
 ---
+
+## Creating Departmental Shared Folders
+
 
 ## 📘 Joining a Windows Client to the Domain
 
