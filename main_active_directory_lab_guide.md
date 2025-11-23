@@ -97,7 +97,7 @@ Click Next until you reach **Server Roles**.
 - Active Directory Domain Services
 - DHCP Server
 - DNS Server
-- File & Storage Services (2 of 12)
+- File & Storage Services 
 - Remote Server Administrator Tools 
 - Windows Defender Anitvirus 
 - Windows Powershell 
@@ -108,22 +108,34 @@ Click Install. (You can mix & match what you would like to add)
 
 ---
 
-## 📘 Promoting the Server to Domain Controller
+## Promoting the Server to Domain Controller
 
 ### 1. After Installation
-In Server Manager, click the yellow flag → Promote this server to a domain controller.
+In Server Manager, click the yellow notification flag → Promote this server to a domain controller.
 
 ### 2. Create a New Forest
-- Domain name example: home.lab
-- NetBIOS name auto-fills (HOME)
+- Choose **Add a new forest**
+- Enter your Domain name. Example: (**lab.local**)
+- NetBIOS name auto-fills (e.g **LAB**)
+Click **Next.**
 
 ### 3. Domain Controller Options
 - Leave Forest Functional Level at default
-- Keep DNS checked
-- Set a DSRM password
+- Leave Domain Functional Level at default
+- Ensure DNS server is checked
+- Global Catalog should be checked 
+- Leave RODC (Read-Only Domain Controller) unchecked
+- Set a DSRM (Directory Services Restore Mode) password
+Click **Next.**
 
-### 4. Complete Setup
-Click Install.
+### 4. DNS % Additional Options
+- A DNS delegation warning may appear - this is normal, you maky skip
+- Click next through additional options and paths pages.
+
+### 5. Complete Setup
+- Review all settings 
+- Let the prerequisite check complete 
+- Click Install.
 The server will reboot as a Domain Controller.
 
 ---
