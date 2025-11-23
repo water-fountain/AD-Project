@@ -181,13 +181,20 @@ Right‑click domain → New → Organizational Unit.
 </details>
 
 ### 3. Create User Accounts
-Right‑click Users OU → New → User.
-Enter:
-- First name
-- Last name
-- Username (ex: jdoe)
+Create users inside the correct department OU for clear and more efficient management
+<details>
+<summary>Steps to Create a User</summary>
 
-Set an initial password → optionally uncheck “User must change password at next logon.”
+- In **Active Directory Users & Computers**, navigate to the your desired OU. (Ex. lab.local -> **Sales**)
+- Right-click the OU -> New -> User
+- Fill in: 
+   - First name (ex. Alexander)
+   - Last name (ex. Smith)
+   - User logon Name (ex: **salesrep01**)
+- Set an initial password → **optionally** uncheck “User must change password at next logon.”
+- Click **Next**, then **Finish**
+
+</details>
 
 ### 4. Add Admin Users
 Create an account such as helpdesk.admin.
