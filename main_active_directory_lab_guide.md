@@ -160,8 +160,10 @@ The server will reboot as a **Domain Controller**.
 <summary>Steps:</summary>
 
 - Start by clicking the search bar
-- Type **Windows Administrative Tools**
+- Type **Windows Administrative Tools**, and click it
 - Click **Active Directory Users and Computers**
+
+![alt text](image-21.png)
 
 </details>
 
@@ -171,8 +173,8 @@ The server will reboot as a **Domain Controller**.
 
 Create desired groups to organize **permissions and role-based access** in your domain 
 
-- **Sales_Users** - **Standard** Users in Sales dapartment 
-- **HelpDesk_Techs** - Help desk staff with **limited** admin privileges to resolve issues
+- **SalesUsers** - **Standard** Users in Sales dapartment 
+- **HelpDesk** - Help desk staff with **limited** admin privileges to resolve issues
 - **IT_Admins** - **Full** administrative rights for IT staff
 
 </details>
@@ -181,12 +183,18 @@ Create desired groups to organize **permissions and role-based access** in your 
 <summary>How to Create a Security Group</summary>
 
 - Open **Active Directory Users and Computers**
-- Navigate to the OU where you would like to store your groups (e.g **CorpUsers** -> **IT** or another dedicated Group OU)
+- Navigate to the **OU** where you would like to store your groups (e.g **CorpUsers** -> **IT** or another dedicated Group OU)
+
+![alt text](image-19.png)
+
 - Right click the **OU** -> **New** -> **Group**
 - Configure the following:
    - Group Name: (ex. **IT_Admins**) 
    - Group Scope: **Global**
    - Group Type: **Security**
+
+![alt text](image-20.png)
+
 - Click **Ok** to create the group.
 
 You can now add users to these groups to create accounts, in this instance, for the IT department
@@ -194,7 +202,6 @@ You can now add users to these groups to create accounts, in this instance, for 
 </details>
 
 ### 3. Create Organizational Units
-**Right‑click** domain → **New**→ **Organizational Unit**.
 <details>
 <summary>Suggested OUs:</summary>
 
@@ -213,8 +220,14 @@ You can now add users to these groups to create accounts, in this instance, for 
 
 - Open **Active Directory Users & Computers**
 - Right click your domain (ex. **lab.local**)
-- Select **New** -> Organizational Unit
-- Enter the OU name (ex. **Sales**)
+- Select **New** -> **Organizational Unit**
+
+![alt text](image-17.png)
+
+- Enter the **OU** name (ex. **Sales**)
+
+![alt text](image-18.png)
+
 - Click **OK**
 
 Repeat for each department you would want to organize
@@ -227,12 +240,21 @@ Create users inside the correct department OU for clear and more efficient manag
 <summary>Creating a User</summary>
 
 - In **Active Directory Users & Computers**, navigate to the your desired OU. (Ex. lab.local -> **Sales**)
-- Right-click the OU -> New -> User
+- Right-click the **OU** -> **New** -> **User**
+
+![alt text](image-14.png)
+
 - Fill in: 
    - First name (ex. Alexander)
    - Last name (ex. Smith)
    - User logon Name (ex: **salesrep01**)
-- Set an initial password → **optionally** uncheck “User must change password at next logon.”
+
+![alt text](image-15.png)
+
+- Set an **initial password** → **optionally** uncheck “User must change password at next logon.”
+
+![alt text](image-16.png)
+
 - Click **Next**, then **Finish**
 
 </details>
@@ -243,10 +265,15 @@ After creating a user, add them to the appropriate group by:
 <summary>Steps:</summary>
 
 - Right-click the user -> Properties
-- Go to the Member of tab
-- Click Add
-- Enter the group name (ex. Sales_Users, HelpDesk_Techs, IT_Admins)
-- Click OK
+
+![alt text](image-12.png)
+
+- Go to the **Member of** tab
+- Click **Add**
+- Enter the **group name** (ex. **Sales_Users, HelpDesk_Techs, IT_Admins**)
+- Click **OK**
+
+![alt text](image-13.png)
 
 Users now will inherit permissions based on the groups assigned to them.
 
@@ -259,71 +286,106 @@ Create dedicated administrative accounts seperate from standard users for securi
 <summary>Steps:</summary>
 
 - Open **Active Directory Users and Computers** (ADUC) 
+
+![alt text](image-7.png)
+
 - Navigate to the **Admins** -> **AdminUsers OU** (create if not done so already)
+
+![alt text](image-6.png)
+
 - Right-click the **OU** -> **New** -> **User**
+
+![alt text](image-8.png)
+
 - Fill in the account information:
-   - First Name: (ex. John)
-   - Last Name: (ex. Doe)
+   - First Name: (ex. Janet)
+   - Last Name: (ex. Finnel)
    - User Logon Name: (ex. jdoe.admin)
+
+![alt text](image-9.png)
+
 - Click **Next**
 - Set a **strong password**:
    - Enable options as needed
+
+![alt text](image-10.png)
+
 - Click **Next**, then **finish** to create the account
 - Add the new account to the **IT_Admins security group**:
    - **Right-click** the user -> **Properties** -> **Member of** tab -> **Add** -> Enter **IT_Admins** -> **Check Names** -> **Ok**
+
+![alt text](image-11.png)
 
 </details>
 
 ---
 
 ## Creating Departmental Shared Folders
+Provides shared access of files for departments with proper permissions.
+<details>
+<summary>Steps:</summary>
 
+- Log into your server
+- Click the search bar, open file explorer & navigate to your desired location for your shared folders (e.g **C:\DeptShares**)
+- Create folders for each department you'd like:
+   - **Sales**
+   - **HelpDesk**
+   - **IT**
 
-## 📘 Joining a Windows Client to the Domain
+![alt text](image-3.png)
 
-### 1. Configure Client Network
-Set DNS to the domain controller’s IP:
-- Preferred DNS: 192.168.1.10
+- Right-click each folder -> Click **properties** -> **Sharing tab** -> **Advanced Sharing**
 
-### 2. Join the Domain
-1. Right‑click This PC → Properties
-2. Rename this PC (advanced)
-3. Change…
-4. Select Domain and enter: home.lab
-5. Enter domain admin credentials
-6. Restart PC
+![alt text](image-2.png)
 
-### 3. Log In with Domain User
-On login screen:
-- Click “Other user”
-- Login using: HOME/jdoe
+- Now check **share this folder**, set a **share name**, then click **permissions**.
+- Add the corresponding **security group** for each folder & assign **permissions**:
+   - Sales -> **SalesUsers** -> **Modify**
+   - HelpDesk -> **HelpDesk** -> **Modify**
+   - IT_Admins -> **IT_Admins** -> **Full Control**
+
+![alt text](image-4.png)
+
+- Click **apply**, then **ok**
+- Switch to **security tab** to make sure that the **NTFS permissions** match the **share permissions**
+
+![alt text](image-5.png)
+
+- Test access by using another **VM** as a user from each **group**
+
+</details>
 
 ---
 
-## 📘 Group Policies (GPOs)
+## Creating Group Policies (GPOs)
+The purpose of GPO's is to enforce **policies** & automate various **configurations** for users & their computers
+<details>
+<summary>Steps:</summary>
 
-### 1. Open Group Policy Management
-Server → Start → Group Policy Management.
 
-### 2. Create a New GPO
-Right‑click domain → Create a GPO.
-Examples:
-- Password Policy
-- Desktop Restrictions
-- Disable Control Panel
-- Map Network Drives
+- Open **Group Policy Management Console** (GPMC):
+   - **Start** -> **Administrative Tools** -> **Group Policy Management**
 
-### 3. Edit GPO
-Right‑click GPO → Edit.
-Common paths:
-- Computer Configuration → Policies → Windows Settings → Security Settings → Account Policies
-- User Configuration → Policies → Administrative Templates
+![alt text](image-22.png)
 
-### 4. Apply GPO to OUs
-Drag GPO onto target OU.
+- Right click your domain (**lab.local**) -> **Create a GPO in this domain, & link it here..**
 
-### 5. Force Update on Client
-```cmd
-gpupdate /force
+![alt text](image-23.png)
+
+- Give your new **GPO** a **descriptive name** (ex. **Password Policy GPO**)
+
+![alt text](image-24.png)
+
+- Right-click the **GPO** -> edit to open the **Group Policy Management Editor**
+
+![alt text](image-25.png)
+
+- Configure policies based on a specific purpose, below are some examples:
+   - **Password Policy:** **Computer Configuration** -> **Policies** -> **Windows Settings** -> **Security Settings** -> **Account Policies** -> **Password Policy**
+      - Policies enabled in this instance: **Password must meet complexity requirements** & **Minimum password length**
+
+![alt text](image-26.png)
+
+   - **Mapped Drives:** **User configuration** -> **Preferences** -> **Windows Settings** -> **Drive Maps**  
 
 
