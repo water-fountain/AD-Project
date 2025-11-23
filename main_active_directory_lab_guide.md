@@ -129,7 +129,9 @@ Click **Next.**
 - Global Catalog should be checked 
 - Leave RODC (Read-Only Domain Controller) unchecked
 - Set a DSRM (Directory Services Restore Mode) password
+
 Click **Next.**
+
 </details>
 
 ### 4. DNS & Additional Options
