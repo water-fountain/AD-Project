@@ -394,7 +394,7 @@ The purpose of GPO's is to enforce **policies** & automate various **configurati
 
 ![alt text](image-27.png)
 
-   - **Task Manager Restrictions:** **User Config** -> **Admin Templates** -> **Control Panel** -> Prohibit access to Control Panel
+   - **Task Manager Restrictions:** **User Config** -> **Admin Templates** -> **Control Panel** -> **Prohibit access to Control Panel**
 
 ![alt text](image-29.png)
 
