@@ -6,30 +6,36 @@
 ![Active Directory](https://img.shields.io/badge/Role-Active%20Directory-3A5BA0)
 ![Caution](https://img.shields.io/badge/⚠️-Administrative%20Changes-critical)
 
-This guide will walk you through setting up a complete, albeit basic, Active Directory (AD) environment for IT practice project building.
+This is a hands-on Active Directory Home Lab designed to simulate a real life enterprise infrastructure.
+This project/guide includes a domain controller, Organizational Structures, Users, Security Groups, Mapped Drives, GPO's, and so much more - mirroring real life modern IT environments.
 
----
-
-## Goal
-<details>
-<summary>Build a functional AD lab on a home machine using:</summary>
-
-- **Windows Server 2019 (Domain Controller)**
-- **Windows 10/11 Client VM**
-- **pfSense or NAT networking (optional)**
-- **Users, OUs, GPOs, and basic administration tasks**
-</details>
-
----
+The goal of this lab is to:
+- Build practical skills in **Windows Server 2019**, **AD DS**, **GPOs**, & **file services**.
+- Create portfolio-ready IT examples.
+- Understand real-world administration workflows.
 
 ## Requirements
-- Virtualization: VirtualBox, VMware, or Hyper-V https://www.virtualbox.org/wiki/Downloads
-- Windows Server ISO (2019 or 2022) https://www.microsoft.com/en-us/evalcenter/evaluate-windows-server-2019
-- Windows 10/11 ISO https://www.microsoft.com/en-us/software-download/windows11
-- 8–16 GB RAM recommended
-- 50–100 GB free disk space
+To build this Active Directory Home Lab, you will need:
 
----
+### Virtualization Platform
+Choose one of the following:
+   - **VirtualBox** (free) -> https://www.virtualbox.org/wiki/Downloads
+   - **VMware Workstation/Player**
+   - **Hyper-V**
+
+### Operating System ISOs
+Download the installer images:
+   - **Windows Server (2019 or 2022) ISO** -> https://www.microsoft.com/en-us/evalcenter/evaluate-windows-server-2019
+   - **Windows 10/11 ISO** -> https://www.microsoft.com/en-us/software-download/windows11
+
+### Hardware Recommendations
+This are recommended to have:
+   - **8–16 GB RAM recommended**
+   - **50–100 GB free disk space**
+   - **Quad-core CPU recommended**
+
+### Networking Requirements
+   - Internal network or NAT network (VBox/VMware/Hyper-V)
 
 ## Setting Up the Domain Controller (Windows Server 2019 / 2022 Install)
 
@@ -37,12 +43,19 @@ This guide will walk you through setting up a complete, albeit basic, Active Dir
 <details>
 <summary>When creating the VM:</summary>
 
-- Allocate **2–4 vCPUs**
-- Assign **4–8 GB RAM**
-- Create a **40–60 GB virtual disk**
+- CPU: **2-4 vCPUs**
+- RAM: **4-8 GB**
+- Disk: **40-60 GB**
+- Network Adapter: **Internal Network / Host-Only / LabNet**
 </details>
 
 ### 2. Attach the Windows Server ISO
+<details>
+<summary>While attaching:</summary>
+
+- Mount the **Windows Server 2019/2022** ISO
+- Start the VM
+</details>
 
 ### 3. Install Windows Server
 <details>
@@ -50,78 +63,108 @@ This guide will walk you through setting up a complete, albeit basic, Active Dir
 
 - Choose **Windows Server 2019/2022 Standard (Desktop Experience)**
 - Select **Custom Install**
-- Install to the virtual disk
+- Install to the newly created virtual disk
 </details>
 
 ### 4. Initial Configuration
 <details>
-<summary>After install completes:</summary>
+<summary>After configuration completes:</summary>
 
-- Create a **strong** local Administrator password (i.e **OldPassword123!**)
+- Create/Set a **strong** *local Administrator* password (i.e **OldPassword123!**)
 - Open **Server Manager**
-- Set the computer name (ex: SRV-DC01)
+- Set the computer/system name (ex: SRV-DC01)
 - Restart the VM
 
 ![alt text](image-1.png)
+
 </details>
 
-### 5. Configure Network Settings
+### 5. Configure Network Settings (Static Networking)
 <details>
 <summary>Setting up a static IP:</summary>
 
-1. Open Network & Internet Settings
+1. Open **Network & Internet Settings**
 2. Change **adapter options** → Right-click **Ethernet** → **Properties**
 3. IPv4 Settings: 
-   - IP: 192.168.10.10 (example)
+   - IP: 192.168.10.1
    - Subnet: 255.255.255.0
-   - Gateway: 192.168.10.1 (example)
-   - Preferred DNS: 127.0.0.1 (loopback) 
+   - Gateway: BLANK
+   - Preferred DNS: 192.168.10.1
    
-![picture](image.png)
-</details>
+![alt text](image.png)
 
----
+</details>
 
 ## Installing AD DS Roles
+After your server is renamed and assigned a static IP, you can begin installing the roles required for Active Directory Domain Services (AD DS)
 
 ### 1. Open Server Manager
+Server Manager usually opens automatically on login, but you can also launch it from the start menu
+
+### 2. Add Roles & Features
 Click **Manage** → **Add Roles and Features**.
 
-### 2. Choose Role-Based Installation
-Click Next until you reach **Server Roles**.
-
-### 3. Install Active Directory Domain Services & Features
+### 3. Choose Installation Type 
 <details>
-<summary>Checklist:</summary>
+<summary>Steps:</summary>
 
-- Active Directory Domain Services
-- DHCP Server
-- DNS Server
-- File & Storage Services 
-- Remote Server Administrator Tools 
-- Windows Defender Anitvirus 
-- Windows Powershell 
-- Window Server Backup
+   - Select **Role-based or feature-based installation**
 
-Click Install. (You can mix & match what you would like to add)
+![alt text](image-38.png)
+   
+   - Click **Next**
+
 </details>
 
----
+### 4. Select Your Server
+<details>
+<summary>Steps:</summary>
+   - Choose your server from the list (ex. SRV-DC01.lab.local)
+
+   ![alt text](image-39.png)
+
+   - Click **Next**
+
+</details>
+
+### 5. Select Server Roles & Features
+<details>
+<summary>Server Roles & Features:</summary> 
+
+   - **Active Directory Domain Services**
+   - **DNS Server**
+   - **DHCP Server** *(optional but recommended for labs)*
+   - **File and Storage Services**
+   - **Remote Server Administration Tools**
+   - **Windows Defender Antivirus**
+   - **Windows PowerShell**
+   - **Windows Server Backup** *(optional)*
+
+If prompted, click **Add features** for any dependency warnings
+
+Click **Next**.
+</details>
+
+### 6. Confirm & Install
+   - Review the summary
+   - Click **Install**
+   - Allow installation to complete
 
 ## Promoting the Server to Domain Controller
 
-### 1. After Installation
-In Server Manager, click the yellow notification flag → Promote this server to a domain controller.
+### 1. Launch Promotion Wizard
+In Server Manager after installing AD DS, click the yellow notification flag, then select:
+   - Promote this server to a domain controller.
 
 ### 2. Create a New Forest
 <details>
-<summary>When Creating:</summary>
+<summary>Choose:</summary>
 
-- Choose **Add a new forest**
-- Enter your Domain name. Example: (**lab.local**)
-- NetBIOS name auto-fills the name (e.g **LAB**)
+- **Add a new forest**
+- Enter a Domain Name: (ex: **lab.local**)
+- NetBIOS name will auto-fill(ex: **LAB**)
 
-Click **Next.**
+Click **Next**.
 
 </details>
 
@@ -381,6 +424,9 @@ The purpose of GPO's is to enforce **policies** & automate various **configurati
 ![alt text](image-25.png)
 
 - Configure policies based on a specific purpose, below are some examples:
+
+---
+
    - **Password Policy:** **Computer Configuration** -> **Policies** -> **Windows Settings** -> **Security Settings** -> **Account Policies** -> **Password Policy**
       - Policies enabled in this instance: **Password must meet complexity requirements** & **Minimum password length**
 
@@ -388,6 +434,7 @@ The purpose of GPO's is to enforce **policies** & automate various **configurati
 
 ![alt text](image-26.png)
 
+---
 
    - **Desktop Restrictions:** **User Configuration** -> **Policies** -> **Adminstrative Templates** -> **Desktop**
       - Policies enabled in this instance: **Hide & Disable all items on the desktop, Remove My Documents icon on Desktop, Hide Network Locations, Remove Properties from the Computer Icon, & Remove recycle bin icon from desktop**
@@ -396,9 +443,13 @@ The purpose of GPO's is to enforce **policies** & automate various **configurati
 
 ![alt text](image-30.png) 
 
+---
+
    - **Control Panel Restrictions:** **User Config** -> **Admin Templates** -> **Control Panel** -> **Prohibit access to Control Panel**
 
 ![alt text](image-29.png)
+
+---
 
    - **Drive Mapping:**
       
@@ -411,33 +462,122 @@ The purpose of GPO's is to enforce **policies** & automate various **configurati
 
 ![alt text](image-31.png)
 
-   - Set NTFS Permissions
+---
+
+   - Configure NTFS Permissions
+   Each department folder gets modify rights for respective department group & full control for administrators
       - Ex. for Sales:
          - Right click Sales -> Properties -> Security -> Advanced
-         - Remove everyone if present
-         - Add:
+         - Click Disable Inheritance -> Convert inherited permissions 
+         
+         ![alt text](image-32.png)
+
+         - Remove all unnecessary principals to your liking 
+         - Add the following:
             - Domain Admins -> Full Control
             - SalesUsers -> Modify
          - WARNING: 
             - Don't use individual user accounts
             - Don't give full control to non-admins
    - Share the folder
-      - Right click sales -> Properties -> Sharing -> Advanced Sharing
+      - Right click sales folder -> Properties -> Sharing -> Advanced Sharing
          - Check Share this folder
          - Share name: Sales
-         - Permissions -> Remove everyone 
+
+         ![alt text](image-33.png)
+
+         - Click Permissions -> Remove everyone 
          - Add:
             - SalesUsers -> Read/Write
             - Domain Admins -> Full Control
 
+         ![alt text](image-34.png)
+         
+         - Close editor when finished
 
+---
 
+   - Enable Access-Based Enumeration (ABE)
+   This hides folders users do not have NTFS permissions to.
+      - Open Server Manager
+      - Go to:
+         - File & Storage Services -> Shares
+      - Right-click your share -> Properties
+      - Under settings, check:
+         - Enable access-based enumeration
 
+         ![alt text](image-35.png)
 
+      Now HR users cannot even see the Sales folder, & vice versa
 
+---
 
+   - Create Mapped Drive GPO
+   Path: Group Policy Management -> CorpUsers -> Department OU
+      - Right-click the OU -> Create a GPO in this domain & link it here...
+   Name ex. Sales - Mapped Drive
 
-- Close the editor when finished
-- Force the Group Policy update on client side (or wait for an auto refresh)
-   - Command Prompt: **gpupdate /force**
-- Test the GPO by logging into the affected users to verify settings are all correct
+   Edit the GPO:
+      - User Config -> Pref -> Windows Settings -> Drive Maps 
+      - Right-click -> New -> Mapped Drive 
+   
+---
+
+   - Configure the Drive Mapping 
+      - Action: Create
+      - Location:
+      - Label as: Sales Share
+      - Drive Letter: S:
+      - Reconnect: Y
+
+      ![alt text](image-36.png)
+
+   - Common Tab -> Item-Level Targeting
+      - Check Item-level targeting
+      - Click Targeting...
+      - New Item -> Sec Group
+      - Group: SalesUsers
+      - Match: User in group
+
+      ![alt text](image-37.png)
+
+---
+
+   - Security Filtering 
+   For each department GPO:
+      - Keep:
+         - Authenticated Users
+         - SalesUser (or HRUsers, ITUsers, etc)
+      - Do not Keep / Add:
+         - Computers
+         - Domain Admins
+         - IT Admins
+         - Everyone 
+
+---
+
+   - Apply GPO on the Client Machine
+   On the Client's workstation:
+      - gpupdate /force
+   Then log out & back in
+   Mapped drives only appear at user logon
+
+---
+
+   - Test the Configuration
+   Test UNC Path:
+      - \\SRV-DC01\Sales on search bar
+      or 
+      - start \\SRV-DC01\HR on CMD
+      If the folder appears:
+         - UNC path is working
+         - Share + NTFS is correct
+      - Mapped drive should now work
+   
+   - Check applied GPOs:
+      - gpresult /r
+      Under User Settings, you should encounter:
+         - Sales - Mapped Drives
+      - Check Drive Mapping:
+         - Open This PC & verify
+
