@@ -565,7 +565,7 @@ The purpose of GPO's is to enforce **policies** & automate various **configurati
 
    - Apply GPO on the Client Machine
    On the Client's workstation:
-      - gpupdate /force
+      - `gpupdate /force`
    Then log out & back in
    Mapped drives only appear at user logon
 
@@ -573,16 +573,16 @@ The purpose of GPO's is to enforce **policies** & automate various **configurati
 
    - Test the Configuration
    Test UNC Path:
-      - \\SRV-DC01\Sales on search bar
+      - `\\SRV-DC01\Sales` on search bar
       or 
-      - start \\SRV-DC01\HR on CMD
+      - `start \\SRV-DC01\HR` on CMD
       If the folder appears:
          - UNC path is working
          - Share + NTFS is correct
       - Mapped drive should now work
    
    - Check applied GPOs:
-      - gpresult /r
+      - `gpresult /r`
       Under User Settings, you should encounter:
          - Sales - Mapped Drives
       - Check Drive Mapping:
@@ -594,20 +594,20 @@ The purpose of GPO's is to enforce **policies** & automate various **configurati
 Below may be some common issues you may encounter in a basic AD Home Lab & how to resolve them.
 
 ### Mapped Drives Not Appearing
+
 <details>
 <summary>Symptoms</summary>
 
    - Drive letter does not show in *This PC*
-   - gpresult /r does not list the GPO 
+   - `gpresult /r` does not list the GPO 
    - UNC path works but drive mapping does not
 
 </details>
 
 <details>
+<summary>Fixes</summary>
 
-<summary>Fixes</summmary>
-
-   - Ensure the following doesn't conflict with your mapped drives
+- Ensure the following doesn't conflict with your mapped drives
       - Control Panel Restrictions
       - Desktop Restrictions
       - Any GPO
@@ -616,6 +616,147 @@ Below may be some common issues you may encounter in a basic AD Home Lab & how t
       - Correct department group (HRUsers, SalesUsers, etc)
    - Ensure correct Item-Level Targeting:
       - User is in group (not "primary group")
-   - Always remember to run: gpupdate /force
+   - Always remember to run: `gpupdate /force`
       - log out, & log back in again
+
 </details>
+
+### The network name cannot be found
+<details>
+<summary>Symptoms</summary>
+
+- `\\SRV-DC01\Share` fails
+- `start \\Server\Share` returns error
+
+</details>
+
+<details>
+<summary>Fixes</summary>
+
+- Test hostname resolution:
+   - `ping SRV-DC01`
+   - `nslookup SRV-DC01`
+
+- If hostname fails but IP works:
+   - Check DNS client settings (must point to DC)
+   - Ensure DC's DNS service is running
+
+- Test UNC directly:
+   - start `\\192.168.10.10\HR`
+
+</details>
+
+### GPO Not Applying
+<details>
+<summary>Fixes</summary>
+
+- Verify the GPO is linked to the correct OU
+- Ensure the user/computer is inside the OU
+- Check inheritance:
+   - `gpresult /h report.html`
+- Remove extra filters (like computers, admins, etc)
+
+</details>
+
+## Network Topology
+<details>
+<summary>Network Diagram</summary>
+
+![alt text](image-10.png)
+
+</details>
+
+### Legend
+<details>
+<summary>What means what?</summary>
+
+- **SRV-DC01** — Windows Server 2019 Domain Controller  
+  - Hosts: AD DS, DNS, DHCP (optional), File Shares, GPOs  
+  - IP: **192.168.10.1**
+
+- **HRWS01** — HR department workstation  
+  - IP: **192.168.10.2**
+
+- **ITWS01** — IT department workstation  
+  - IP: **192.168.10.3**
+
+- **SLSWS01** — Sales department workstation  
+  - IP: **192.168.10.4**
+
+- **Internal Network**  
+  - Subnet: **192.168.10.0/24**
+
+- **UNC Path Examples**
+  - `\\SRV-DC01\HR`
+  - `\\SRV-DC01\IT`
+  - `\\SRV-DC01\Sales`
+
+- **Drive Mapping**
+  - H: → HR Share  
+  - I: → IT Share  
+  - S: → Sales Share  
+
+</details>
+
+## What I Learned 
+Working through this whole lab, it taught me several core IT concepts that directly apply to real life enterprise environments:
+
+<details>
+<summary>Active Directory Fundamentals</summary>
+
+- How domains, OUs, users, computers, and security groups function together  
+- Why organizations use **role-based access control (RBAC)** rather than per-user permissions  
+- The importance of separating **admin** and **standard** accounts  
+
+</details>
+
+<details>
+<summary>Group Policy (GPO)</summary>
+
+- How to create, link, and scope GPOs to specific OUs  
+- The difference between:
+  - **Policies** (enforce configurations)
+  - **Preferences** (apply settings like mapped drives)  
+- How **Security Filtering** + **Item-Level Targeting** determine who receives a GPO  
+
+</details>
+
+<details>
+<summary>File Sharing & Permissions</summary>
+
+- How to configure **NTFS permissions** vs. **Share permissions**  
+- Why Access-Based Enumeration hides folders users cannot access  
+- How UNC paths work: `\\SRV-DC01\ShareName`  
+
+</details>
+
+<details>
+<summary>Networking & DNS</summary>
+
+- Setting static IPs for domain environments  
+- Why Windows clients *must* use the Domain Controller as DNS  
+- Troubleshooting share access with:
+  - `ping`
+  - `nslookup`
+  - `net view`
+  - `start \\Server\Share`  
+
+</details>
+
+<details>
+<summary>Troubleshooting Skills</summary>
+
+- Fixing workstation trust issues  
+- Rejoining computers to the domain  
+- Diagnosing GPO problems using:
+  - `gpupdate /force`
+  - `gpresult /r`
+  - Event Viewer  
+
+Overall, I learned how Windows enterprise environments are structured, how permissions flow, and how to diagnose issues across layers like a real Help Desk or SysAdmin technician could.
+
+</details>
+
+
+*Created by [B. Fontaine]*
+
