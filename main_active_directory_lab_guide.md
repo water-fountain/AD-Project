@@ -461,42 +461,42 @@ The purpose of GPO's is to enforce **policies** & automate various **configurati
    - **Drive Mapping:**
       
    - Create Department folders
-      - Inside C:\DeptShares, create:
-         - Sales
-         - HR
-         - IT
-         - HelpDesk
+      - Inside `C:\DeptShares`, create:
+         - **Sales**
+         - **HR**
+         - **IT**
+         - **HelpDesk**
 
 ![alt text](image-31.png)
 
 ---
 
-   - Configure NTFS Permissions
+   - Configure **NTFS Permissions**
    Each department folder gets modify rights for respective department group & full control for administrators
       - Ex. for Sales:
-         - Right click Sales -> Properties -> Security -> Advanced
-         - Click Disable Inheritance -> Convert inherited permissions 
+         - Right click **Sales** -> **Properties** -> **Security** -> **Advanced**
+         - Click **Disable Inheritance** -> Convert **inherited permissions**
          
          ![alt text](image-32.png)
 
          - Remove all unnecessary principals to your liking 
          - Add the following:
-            - Domain Admins -> Full Control
-            - SalesUsers -> Modify
+            - Domain Admins -> **Full Control**
+            - SalesUsers -> **Modify**
          - WARNING: 
             - Don't use individual user accounts
             - Don't give full control to non-admins
    - Share the folder
-      - Right click sales folder -> Properties -> Sharing -> Advanced Sharing
-         - Check Share this folder
-         - Share name: Sales
+      - Right click **sales folder** -> **Properties** -> **Sharing** -> **Advanced Sharing**
+         - Check **Share this folder**
+         - Share name: **Sales**
 
          ![alt text](image-33.png)
 
-         - Click Permissions -> Remove everyone 
+         - Click **Permissions** -> Remove everyone 
          - Add:
-            - SalesUsers -> Read/Write
-            - Domain Admins -> Full Control
+            - SalesUsers -> **Read/Write**
+            - Domain Admins -> **Full Control**
 
          ![alt text](image-34.png)
          
@@ -504,14 +504,14 @@ The purpose of GPO's is to enforce **policies** & automate various **configurati
 
 ---
 
-   - Enable Access-Based Enumeration (ABE)
+   - Enable **Access-Based Enumeration (ABE)**
    This hides folders users do not have NTFS permissions to.
       - Open Server Manager
       - Go to:
-         - File & Storage Services -> Shares
-      - Right-click your share -> Properties
+         - **File & Storage Services -> Shares**
+      - **Right-click your share -> Properties**
       - Under settings, check:
-         - Enable access-based enumeration
+         - **Enable access-based enumeration**
 
          ![alt text](image-35.png)
 
@@ -531,20 +531,20 @@ The purpose of GPO's is to enforce **policies** & automate various **configurati
 ---
 
    - Configure the Drive Mapping 
-      - Action: Create
+      - Action: **Create**
       - Location:
-      - Label as: Sales Share
-      - Drive Letter: S:
-      - Reconnect: Y
+      - Label as: Sales **Share**
+      - Drive Letter: **S:**
+      - Reconnect: **Y**
 
       ![alt text](image-36.png)
 
    - Common Tab -> Item-Level Targeting
-      - Check Item-level targeting
-      - Click Targeting...
-      - New Item -> Sec Group
-      - Group: SalesUsers
-      - Match: User in group
+      - Check **Item-level targeting**
+      - Click **Targeting...**
+      - **New Item** -> **Sec Group**
+      - Group: **SalesUsers**
+      - Match: **User in group**
 
       ![alt text](image-37.png)
 
@@ -553,8 +553,8 @@ The purpose of GPO's is to enforce **policies** & automate various **configurati
    - Security Filtering 
    For each department GPO:
       - Keep:
-         - Authenticated Users
-         - SalesUser (or HRUsers, ITUsers, etc)
+         - **Authenticated Users**
+         - **SalesUser** (or HRUsers, ITUsers, etc)
       - Do not Keep / Add:
          - Computers
          - Domain Admins
@@ -578,7 +578,7 @@ The purpose of GPO's is to enforce **policies** & automate various **configurati
       - `start \\SRV-DC01\HR` on CMD
       If the folder appears:
          - UNC path is working
-         - Share + NTFS is correct
+         - **Share** + **NTFS** is correct
       - Mapped drive should now work
    
    - Check applied GPOs:
@@ -586,7 +586,7 @@ The purpose of GPO's is to enforce **policies** & automate various **configurati
       Under User Settings, you should encounter:
          - Sales - Mapped Drives
       - Check Drive Mapping:
-         - Open This PC & verify
+         - Open **This PC** & **verify**
 
 </details>
 
@@ -600,7 +600,7 @@ Below may be some common issues you may encounter in a basic AD Home Lab & how t
 
    - Drive letter does not show in *This PC*
    - `gpresult /r` does not list the GPO 
-   - UNC path works but drive mapping does not
+   - **UNC path**works but drive mapping does not
 
 </details>
 
@@ -608,14 +608,14 @@ Below may be some common issues you may encounter in a basic AD Home Lab & how t
 <summary>Fixes</summary>
 
 - Ensure the following doesn't conflict with your mapped drives
-      - Control Panel Restrictions
-      - Desktop Restrictions
-      - Any GPO
+      - **Control Panel Restrictions**
+      - **Desktop Restrictions**
+      - Any **GPO**
    - Verify Security Filtering includes:
-      - Authenticated Users
-      - Correct department group (HRUsers, SalesUsers, etc)
-   - Ensure correct Item-Level Targeting:
-      - User is in group (not "primary group")
+      - **Authenticated Users**
+      - Correct department group (**HRUsers, SalesUsers**, etc)
+   - Ensure correct **Item-Level Targeting**:
+      - **User is in group** (not "**primary group**")
    - Always remember to run: `gpupdate /force`
       - log out, & log back in again
 
@@ -650,8 +650,8 @@ Below may be some common issues you may encounter in a basic AD Home Lab & how t
 <details>
 <summary>Fixes</summary>
 
-- Verify the GPO is linked to the correct OU
-- Ensure the user/computer is inside the OU
+- Verify the **GPO** is linked to the correct **OU**
+- Ensure the **user/computer** is inside the **OU**
 - Check inheritance:
    - `gpresult /h report.html`
 - Remove extra filters (like computers, admins, etc)
