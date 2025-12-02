@@ -169,14 +169,16 @@ Click **Next**.
 </details>
 
 ### 3. Domain Controller Options
+Configure the following:
 <details>
 <summary>Checklist:</summary>
 
-- Leave **Forest Functional Level** at **default**
-- Leave **Domain Functional Level** at **default**
-- Ensure **DNS server** is **checked**
-- **Global Catalog** should be **checked**
-- Leave **RODC** (Read-Only Domain Controller) **unchecked**
+- **Forest Functional Level**: **default**
+- **Domain Functional Level**: **default**
+- **Domain Controller Capabilities:**
+   - DNS Server **checked**
+   - Global Catalog **checked**
+   - RODC (Read-Only Domain Controller) **unchecked**
 - Set a **DSRM** (Directory Services Restore Mode) password
 
 Click **Next.**
@@ -184,84 +186,69 @@ Click **Next.**
 </details>
 
 ### 4. DNS & Additional Options
-- A DNS delegation **warning** may appear - this is normal, you may **skip**
-- Click **next** through additional options and paths pages
+<details>
+<summary>Notes:</summary>
 
-### 5. Complete Setup
+- If a **DNS delegation warning** appears -> this is normal -> Click next
+- Accept all default paths for **Databae, SYSVOL, & Log files**
+
+Continue until the **Review Options** page 
+
+</details>
+
+### 5. Complete Installation
+<details>
+<summary>Final Steps:</summary>
+
 - Review **all** settings 
-- Let the prerequisite check complete 
+- Let the **prerequisite check** complete 
 - Click **Install**
+- The server will automatically reboot
+- The server will now reboot as a **Domain Controller** in a brand new forest
 
-The server will reboot as a **Domain Controller**.
-
----
+</details>
 
 ## Creating Users, Security Groups, & Organizational Units (OUs)
+This section covers the core structure of the Active Directory environment. You & I will be able to create organizational units, security groups, and user accounts that reflect a real-world enterprise environment.
 
 ### 1. Open AD Users and Computers (ADUC)
 <details>
 <summary>Steps:</summary>
 
-- Start by clicking the search bar
-- Type **Windows Administrative Tools**, and click it
+- Click **Start**
+- Search for **Windows Administrative Tools**
 - Click **Active Directory Users and Computers**
 
 ![alt text](image-21.png)
 
 </details>
 
-### 2. Create Security Groups
+### 2. Create Organizational Units
 <details>
-<summary>Recommended Security Groups:</summary> 
+<summary>Suggested OUs & Layout:</summary>
 
-Create desired groups to organize **permissions and role-based access** in your domain 
-
-- **SalesUsers** - **Standard** Users in Sales dapartment 
-- **HelpDesk** - Help desk staff with **limited** admin privileges to resolve issues
-- **IT_Admins** - **Full** administrative rights for IT staff
-
-</details>
-
-<details>
-<summary>How to Create a Security Group</summary>
-
-- Open **Active Directory Users and Computers**
-- Navigate to the **OU** where you would like to store your groups (e.g **CorpUsers** -> **IT** or another dedicated Group OU)
-
-![alt text](image-19.png)
-
-- Right click the **OU** -> **New** -> **Group**
-- Configure the following:
-   - Group Name: (ex. **IT_Admins**) 
-   - Group Scope: **Global**
-   - Group Type: **Security**
-
-![alt text](image-20.png)
-
-- Click **Ok** to create the group.
-
-You can now add users to these groups to create accounts, in this instance, for the IT department
-
-</details>
-
-### 3. Create Organizational Units
-<details>
-<summary>Suggested OUs:</summary>
-
-- Users
-- Admins
-- Computers
-- Groups
 - CorpUsers
+   - Sales
+   - HR
+   - IT
+   - HelpDesk
 - Workstations
-- Service Accounts
+   - Sales
+   - HR
+   - IT
+   - HelpDesk
+- Groups
+- Admins 
+- Service Accounts 
+
+![alt text](image-40.png)
 
 </details>
 
 <details>
-<summary>How to Create an OU</summary>
+<summary>How to Create an OU:</summary>
 
-- Open **Active Directory Users & Computers**
+- Open **Active Directory Users & Computers** again
 - Right click your domain (ex. **lab.local**)
 - Select **New** -> **Organizational Unit**
 
@@ -273,23 +260,49 @@ You can now add users to these groups to create accounts, in this instance, for 
 
 - Click **OK**
 
-Repeat for each department you would want to organize
+</details>
+
+### 3. Create Security Groups
+Security groups define permissions for shared folders, mapped drives, & GPO targeting.
+<details>
+<summary> Recommended Global Security Groups:</summary> 
+
+- **SalesUsers** 
+- **HRUsers**
+- **ITUsers**
+- **HelpDesk** (Limited Admin) 
+- **IT_Admins** (Administrative)
+
+</details>
+
+<details>
+<summary>To create a security group:</summary>
+
+   - Right-click the **Groups** OU
+   - Select **New** -> **Group**
+   - Configure:
+      - Group Name: **SalesUsers**
+      - Group Scope: **Global**
+      - Group Type: **Security**
+   - Click **OK**
+
+Repeat for each department wanted
 
 </details>
 
 ### 4. Create User Accounts
-Create users inside the correct department OU for clear and more efficient management
+Create real user accounts inside the corresponding departmental OU.
 <details>
-<summary>Creating a User</summary>
+<summary>Steps:</summary>
 
-- In **Active Directory Users & Computers**, navigate to the your desired OU. (Ex. lab.local -> **Sales**)
+- In **Active Directory Users & Computers**, navigate to the your desired OU:
+   - CorpUsers -> Sales (or HR, IT, etc)
 - Right-click the **OU** -> **New** -> **User**
 
 ![alt text](image-14.png)
-
 - Fill in: 
-   - First name (ex. Alexander)
-   - Last name (ex. Smith)
+   - First name (ex. **Alexander**)
+   - Last name (ex. **Smith**)
    - User logon Name (ex: **salesrep01**)
 
 ![alt text](image-15.png)
@@ -302,29 +315,29 @@ Create users inside the correct department OU for clear and more efficient manag
 
 </details>
 
-### 5. Adding Users to Security Groups 
-After creating a user, add them to the appropriate group by:
+### 5. Add Users to Security Groups 
 <details>
-<summary>Steps:</summary>
+<summary>After creating a user:</summary>
 
-- Right-click the user -> Properties
+- Right-click the user -> **Properties**
+- Go to the **Member of** tab
+- Click **Add**
+- Enter the **correct department group** (ex. **SalesUsers, HRUsers, ITUsers**)
+- Click **OK**
 
 ![alt text](image-12.png)
 
-- Go to the **Member of** tab
-- Click **Add**
-- Enter the **group name** (ex. **Sales_Users, HelpDesk_Techs, IT_Admins**)
-- Click **OK**
-
-![alt text](image-13.png)
-
-Users now will inherit permissions based on the groups assigned to them.
+Now the user will inherit:
+   - NTFS folder permissions
+   - Share Access
+   - GPO targeting (mapped drives, restrictions, etc)
 
 </details>
 
 
 ### 6. Creating Administrative Accounts
-Create dedicated administrative accounts seperate from standard users for security and proper role management. 
+Create dedicated admin identities with least privilege.
+Never use built-in Administrator account for daily work
 <details>
 <summary>Steps:</summary>
 
