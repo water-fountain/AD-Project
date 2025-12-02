@@ -337,7 +337,7 @@ Now the user will inherit:
 
 ### 6. Creating Administrative Accounts
 Create dedicated admin identities with least privilege.
-Never use built-in Administrator account for daily work
+Never use built-in Administrator account for daily work.
 <details>
 <summary>Steps:</summary>
 
@@ -364,8 +364,6 @@ Never use built-in Administrator account for daily work
 - Set a **strong password**:
    - Enable options as needed
 
-![alt text](image-10.png)
-
 - Click **Next**, then **finish** to create the account
 - Add the new account to the **IT_Admins security group**:
    - **Right-click** the user -> **Properties** -> **Member of** tab -> **Add** -> Enter **IT_Admins** -> **Check Names** -> **Ok**
@@ -373,8 +371,6 @@ Never use built-in Administrator account for daily work
 ![alt text](image-11.png)
 
 </details>
-
----
 
 ## Creating Departmental Shared Folders
 Provides shared access of files for departments with proper permissions.
@@ -410,8 +406,6 @@ Provides shared access of files for departments with proper permissions.
 - Test access by using another **VM** as a user from each **group**
 
 </details>
-
----
 
 ## Creating Group Policies (GPOs)
 The purpose of GPO's is to enforce **policies** & automate various **configurations** for users & their computers
@@ -594,3 +588,34 @@ The purpose of GPO's is to enforce **policies** & automate various **configurati
       - Check Drive Mapping:
          - Open This PC & verify
 
+</details>
+
+## Troubleshooting Guide
+Below may be some common issues you may encounter in a basic AD Home Lab & how to resolve them.
+
+### Mapped Drives Not Appearing
+<details>
+<summary>Symptoms</summary>
+
+   - Drive letter does not show in *This PC*
+   - gpresult /r does not list the GPO 
+   - UNC path works but drive mapping does not
+
+</details>
+
+<details>
+
+<summary>Fixes</summmary>
+
+   - Ensure the following doesn't conflict with your mapped drives
+      - Control Panel Restrictions
+      - Desktop Restrictions
+      - Any GPO
+   - Verify Security Filtering includes:
+      - Authenticated Users
+      - Correct department group (HRUsers, SalesUsers, etc)
+   - Ensure correct Item-Level Targeting:
+      - User is in group (not "primary group")
+   - Always remember to run: gpupdate /force
+      - log out, & log back in again
+</details>
